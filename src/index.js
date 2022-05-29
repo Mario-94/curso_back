@@ -1,9 +1,11 @@
 const express = require("express");
 const { phone } = require("phone");
 const bodyParser = require("body-parser");
+const { config } = "dotenv";
+
 const { multiplication } = require("./utils/operation"); //de esta forma se pone una importacion parcial
 const app = express();
-const PORT = 5000;
+const port = 5000;
 const appv1= require('./routes/v1')
 //de esta manera se asigna el soporte para que nuestra aplicacion soporte de los archivos
 // create application/x-www-form-urlencoded parser
@@ -13,21 +15,15 @@ app.use(bodyParser.json());
 
 
 
-
-
 appv1(app);
 //*********Esto es un mildware************
 app.use((req,res)=>{
 	res.status(404).send("NOT FOUND")
 })
 // se ocupa esta linea para poder la aplicacion escuchando
-app.listen(PORT, () => {
-	console.log(`running ${PORT}`);
+app.listen(process.env.PORT|| 5000, () => {
+	console.log(`running ${process.env.PORT || 5000}`);
 });
-
-
-
-
 
 
 // ************ Toda esta parte la comente por que ahora ya utilizaremos el modelo MVC
